@@ -85,7 +85,6 @@ contract F3Devents {
         bytes32 winnerName,
         uint256 amountWon,
         uint256 newPot,
-        uint256 P3DAmount,
         uint256 genAmount,
         uint256 potAmount,
         uint256 airDropPot
@@ -113,7 +112,6 @@ contract F3Devents {
         bytes32 winnerName,
         uint256 amountWon,
         uint256 newPot,
-        uint256 P3DAmount,
         uint256 genAmount
     );
 
@@ -130,7 +128,6 @@ contract F3Devents {
         bytes32 winnerName,
         uint256 amountWon,
         uint256 newPot,
-        uint256 P3DAmount,
         uint256 genAmount
     );
 
@@ -146,7 +143,6 @@ contract F3Devents {
         bytes32 winnerName,
         uint256 amountWon,
         uint256 newPot,
-        uint256 P3DAmount,
         uint256 genAmount
     );
 
@@ -606,7 +602,6 @@ contract FoMo3Dlong is modularLong {
                 _eventData_.winnerName,
                 _eventData_.amountWon,
                 _eventData_.newPot,
-                _eventData_.P3DAmount,
                 _eventData_.genAmount
             );
 
@@ -939,7 +934,6 @@ contract FoMo3Dlong is modularLong {
                     _eventData_.winnerName,
                     _eventData_.amountWon,
                     _eventData_.newPot,
-                    _eventData_.P3DAmount,
                     _eventData_.genAmount
                 );
             }
@@ -994,7 +988,6 @@ contract FoMo3Dlong is modularLong {
                 _eventData_.winnerName,
                 _eventData_.amountWon,
                 _eventData_.newPot,
-                _eventData_.P3DAmount,
                 _eventData_.genAmount
             );
         }
@@ -1328,7 +1321,8 @@ contract FoMo3Dlong is modularLong {
             // We spent 2000$ in eth re-deploying just to patch this, we hold the
             // highest belief that everything we create should be trustless.
             // Team JUST, The name you shouldn't have to trust.
-            _p3d = _p3d.add(_com);   //???
+
+            // _p3d = _p3d.add(_com);   //???
             _com = 0;
         }
 
@@ -1455,7 +1449,8 @@ contract FoMo3Dlong is modularLong {
             // We spent 2000$ in eth re-deploying just to patch this, we hold the
             // highest belief that everything we create should be trustless.
             // Team JUST, The name you shouldn't have to trust.
-            _p3d = _com;  //???
+
+            // _p3d = _com;  //???
             _com = 0;
         }
 
@@ -1585,7 +1580,6 @@ contract FoMo3Dlong is modularLong {
             _eventData_.winnerName,
             _eventData_.amountWon,
             _eventData_.newPot,
-            _eventData_.P3DAmount,
             _eventData_.genAmount,
             _eventData_.potAmount,
             airDropPot_
