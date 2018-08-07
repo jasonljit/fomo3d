@@ -182,19 +182,17 @@ contract FoMo3Dlong is modularLong {
     using NameFilter for string;
     using F3DKeysCalcLong for uint256;
 
-	otherFoMo3D private otherF3D_;
-    DiviesInterface constant private Divies = DiviesInterface(0xc7029Ed9EBa97A096e72607f4340c34049C7AF48);
-    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0xdd4950F977EE28D2C132f1353D1595035Db444EE);
+    // DiviesInterface constant private Divies = DiviesInterface(0xc7029Ed9EBa97A096e72607f4340c34049C7AF48); //P3d
+    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0xdd4950F977EE28D2C132f1353D1595035Db444EE); //community
 	PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0xD60d353610D9a5Ca478769D371b53CEfAA7B6E4c);
-    F3DexternalSettingsInterface constant private extSettings = F3DexternalSettingsInterface(0x32967D6c142c2F38AB39235994e2DDF11c37d590);
 //==============================================================================
 //     _ _  _  |`. _     _ _ |_ | _  _  .
 //    (_(_)| |~|~|(_||_|| (_||_)|(/__\  .  (game settings)
 //=================_|===========================================================
-    string constant public name = "FoMo3D Long Official";
-    string constant public symbol = "F3D";
-	uint256 private rndExtra_ = extSettings.getLongExtra();     // length of the very first ICO
-    uint256 private rndGap_ = extSettings.getLongGap();         // length of ICO phase, set to 1 year for EOS.
+    string constant public name = "LJITest";
+    string constant public symbol = "L3D";
+	uint256 private rndExtra_ = 30 minutes;     // length of the very first ICO
+    uint256 private rndGap_ = 30 minutes;         // length of ICO phase, set to 1 year for EOS.
     uint256 constant private rndInit_ = 1 hours;                // round timer starts at this
     uint256 constant private rndInc_ = 30 seconds;              // every full key purchased adds this much to the timer
     uint256 constant private rndMax_ = 24 hours;                // max length a round timer can be
@@ -239,17 +237,17 @@ contract FoMo3Dlong is modularLong {
 		// Team allocation percentages
         // (F3D, P3D) + (Pot , Referrals, Community)
             // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
-        fees_[0] = F3Ddatasets.TeamFee(30,6);   //50% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
-        fees_[1] = F3Ddatasets.TeamFee(43,0);   //43% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
-        fees_[2] = F3Ddatasets.TeamFee(56,10);  //20% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
-        fees_[3] = F3Ddatasets.TeamFee(43,8);   //35% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
+        fees_[0] = F3Ddatasets.TeamFee(36);   //50% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
+        fees_[1] = F3Ddatasets.TeamFee(43);   //43% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
+        fees_[2] = F3Ddatasets.TeamFee(66);  //20% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
+        fees_[3] = F3Ddatasets.TeamFee(51);   //35% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
 
         // how to split up the final pot based on which team was picked
         // (F3D, P3D)
-        potSplit_[0] = F3Ddatasets.PotSplit(15,10);  //48% to winner, 25% to next round, 2% to com
-        potSplit_[1] = F3Ddatasets.PotSplit(25,0);   //48% to winner, 25% to next round, 2% to com
-        potSplit_[2] = F3Ddatasets.PotSplit(20,20);  //48% to winner, 10% to next round, 2% to com
-        potSplit_[3] = F3Ddatasets.PotSplit(30,10);  //48% to winner, 10% to next round, 2% to com
+        potSplit_[0] = F3Ddatasets.PotSplit(25);  //48% to winner, 25% to next round, 2% to com
+        potSplit_[1] = F3Ddatasets.PotSplit(25);   //48% to winner, 25% to next round, 2% to com
+        potSplit_[2] = F3Ddatasets.PotSplit(40);  //48% to winner, 10% to next round, 2% to com
+        potSplit_[3] = F3Ddatasets.PotSplit(40);  //48% to winner, 10% to next round, 2% to com
 	}
 //==============================================================================
 //     _ _  _  _|. |`. _  _ _  .
@@ -1307,8 +1305,7 @@ contract FoMo3Dlong is modularLong {
         uint256 _win = (_pot.mul(48)) / 100;
         uint256 _com = (_pot / 50);
         uint256 _gen = (_pot.mul(potSplit_[_winTID].gen)) / 100;
-        uint256 _p3d = (_pot.mul(potSplit_[_winTID].p3d)) / 100;
-        uint256 _res = (((_pot.sub(_win)).sub(_com)).sub(_gen)).sub(_p3d);
+        uint256 _res = ((_pot.sub(_win)).sub(_com)).sub(_gen);
 
         // calculate ppt for round mask
         uint256 _ppt = (_gen.mul(1000000000000000000)) / (round_[_rID].keys);
@@ -1331,16 +1328,13 @@ contract FoMo3Dlong is modularLong {
             // We spent 2000$ in eth re-deploying just to patch this, we hold the
             // highest belief that everything we create should be trustless.
             // Team JUST, The name you shouldn't have to trust.
-            _p3d = _p3d.add(_com);
+            _p3d = _p3d.add(_com);   //???
             _com = 0;
         }
 
         // distribute gen portion to key holders
         round_[_rID].mask = _ppt.add(round_[_rID].mask);
 
-        // send share for p3d to divies
-        if (_p3d > 0)
-            Divies.deposit.value(_p3d)();
 
         // prepare event data
         _eventData_.compressedData = _eventData_.compressedData + (round_[_rID].end * 1000000);
@@ -1349,7 +1343,6 @@ contract FoMo3Dlong is modularLong {
         _eventData_.winnerName = plyr_[_winPID].name;
         _eventData_.amountWon = _win;
         _eventData_.genAmount = _gen;
-        _eventData_.P3DAmount = _p3d;
         _eventData_.newPot = _res;
 
         // start next round
@@ -1436,22 +1429,10 @@ contract FoMo3Dlong is modularLong {
     {
         // pay 2% out to community rewards
         uint256 _com = _eth / 50;
-        uint256 _p3d;
-        if (!address(Jekyll_Island_Inc).call.value(_com)(bytes4(keccak256("deposit()"))))
-        {
-            // This ensures Team Just cannot influence the outcome of FoMo3D with
-            // bank migrations by breaking outgoing transactions.
-            // Something we would never do. But that's not the point.
-            // We spent 2000$ in eth re-deploying just to patch this, we hold the
-            // highest belief that everything we create should be trustless.
-            // Team JUST, The name you shouldn't have to trust.
-            _p3d = _com;
-            _com = 0;
-        }
 
         // pay 1% out to FoMo3D short
         uint256 _long = _eth / 100;
-        otherF3D_.potSwap.value(_long)();
+        _com = _long.add(_com);
 
         // distribute share to affiliate
         uint256 _aff = _eth / 10;
@@ -1462,18 +1443,20 @@ contract FoMo3Dlong is modularLong {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit F3Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
         } else {
-            _p3d = _aff;
+            _com = _long.add(_com);
         }
 
-        // pay out p3d
-        _p3d = _p3d.add((_eth.mul(fees_[_team].p3d)) / (100));
-        if (_p3d > 0)
-        {
-            // deposit to divies contract
-            Divies.deposit.value(_p3d)();
 
-            // set up event data
-            _eventData_.P3DAmount = _p3d.add(_eventData_.P3DAmount);
+        if (!address(Jekyll_Island_Inc).call.value(_com)(bytes4(keccak256("deposit()"))))
+        {
+            // This ensures Team Just cannot influence the outcome of FoMo3D with
+            // bank migrations by breaking outgoing transactions.
+            // Something we would never do. But that's not the point.
+            // We spent 2000$ in eth re-deploying just to patch this, we hold the
+            // highest belief that everything we create should be trustless.
+            // Team JUST, The name you shouldn't have to trust.
+            _p3d = _com;  //???
+            _com = 0;
         }
 
         return(_eventData_);
@@ -1505,7 +1488,7 @@ contract FoMo3Dlong is modularLong {
         airDropPot_ = airDropPot_.add(_air);
 
         // update eth balance (eth = eth - (com share + pot swap share + aff share + p3d share + airdrop pot share))
-        _eth = _eth.sub(((_eth.mul(14)) / 100).add((_eth.mul(fees_[_team].p3d)) / 100));
+        _eth = _eth.sub(((_eth.mul(14)) / 100));
 
         // calculate pot
         uint256 _pot = _eth.sub(_gen);
@@ -1530,7 +1513,7 @@ contract FoMo3Dlong is modularLong {
      * @dev updates masks for round and player when keys are bought
      * @return dust left over
      */
-    function updateMasks(uint256 _rID, uint256 _pID, uint256 _gen, uint256 _keys)
+    function updateMasks(uint256 _rID, uint256 _pID, uint256 _gen, uint256 _keys)  //???
         private
         returns(uint256)
     {
@@ -1621,16 +1604,9 @@ contract FoMo3Dlong is modularLong {
     {
         // only team just can activate
         require(
-            msg.sender == 0x18E90Fc6F70344f53EBd4f6070bf6Aa23e2D748C ||
-            msg.sender == 0x8b4DA1827932D71759687f925D17F81Fc94e3A9D ||
-            msg.sender == 0x8e0d985f3Ec1857BEc39B76aAabDEa6B31B67d53 ||
-            msg.sender == 0x7ac74Fcc1a71b106F12c55ee8F802C9F672Ce40C ||
-			msg.sender == 0xF39e044e1AB204460e06E87c6dca2c6319fC69E3,
+            msg.sender == 0x15fa4E13442BE603E3c7D7b1540b88FDe28ACE04,
             "only team just can activate"
         );
-
-		// make sure that its been linked.
-        require(address(otherF3D_) != address(0), "must link to other FoMo3D first");
 
         // can only be ran once
         require(activated_ == false, "fomo3d already activated");
@@ -1642,25 +1618,6 @@ contract FoMo3Dlong is modularLong {
 		rID_ = 1;
         round_[1].strt = now + rndExtra_ - rndGap_;
         round_[1].end = now + rndInit_ + rndExtra_;
-    }
-    function setOtherFomo(address _otherF3D)
-        public
-    {
-        // only team just can activate
-        require(
-            msg.sender == 0x18E90Fc6F70344f53EBd4f6070bf6Aa23e2D748C ||
-            msg.sender == 0x8b4DA1827932D71759687f925D17F81Fc94e3A9D ||
-            msg.sender == 0x8e0d985f3Ec1857BEc39B76aAabDEa6B31B67d53 ||
-            msg.sender == 0x7ac74Fcc1a71b106F12c55ee8F802C9F672Ce40C ||
-			msg.sender == 0xF39e044e1AB204460e06E87c6dca2c6319fC69E3,
-            "only team just can activate"
-        );
-
-        // make sure that it HASNT yet been linked.
-        require(address(otherF3D_) == address(0), "silly dev, you already did that");
-
-        // set up other fomo3d (fast or long) for pot swap
-        otherF3D_ = otherFoMo3D(_otherF3D);
     }
 }
 
@@ -1695,7 +1652,6 @@ library F3Ddatasets {
         bytes32 winnerName;         // winner name
         uint256 amountWon;          // amount won
         uint256 newPot;             // amount in new pot
-        uint256 P3DAmount;          // amount distributed to p3d
         uint256 genAmount;          // amount distributed to gen
         uint256 potAmount;          // amount added to pot
     }
@@ -1730,11 +1686,9 @@ library F3Ddatasets {
     }
     struct TeamFee {
         uint256 gen;    // % of buy in thats paid to key holders of current round
-        uint256 p3d;    // % of buy in thats paid to p3d holders
     }
     struct PotSplit {
         uint256 gen;    // % of pot thats paid to key holders of current round
-        uint256 p3d;    // % of pot thats paid to p3d holders
     }
 }
 
@@ -1803,20 +1757,6 @@ library F3DKeysCalcLong {
 //  . _ _|_ _  _ |` _  _ _  _  .
 //  || | | (/_| ~|~(_|(_(/__\  .
 //==============================================================================
-interface otherFoMo3D {
-    function potSwap() external payable;
-}
-
-interface F3DexternalSettingsInterface {
-    function getFastGap() external returns(uint256);
-    function getLongGap() external returns(uint256);
-    function getFastExtra() external returns(uint256);
-    function getLongExtra() external returns(uint256);
-}
-
-interface DiviesInterface {
-    function deposit() external payable;
-}
 
 interface JIincForwarderInterface {
     function deposit() external payable returns(bool);
