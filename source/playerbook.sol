@@ -1006,7 +1006,7 @@ library MSFun {
             // if it is, lets record the original signers data
             self.proposal_[_whatProposal].msgData = _msgData;
 
-            // record original senders signature
+            // record original edesenders signature
             self.proposal_[_whatProposal].admin[_whichAdmin] = true;
 
             // update log (used to delete records later, and easy way to view signers)
