@@ -182,19 +182,19 @@ contract FoMo3Dlong is modularLong {
     using NameFilter for string;
     using F3DKeysCalcLong for uint256;
 
-	otherFoMo3D private otherF3D_;
-    DiviesInterface constant private Divies = DiviesInterface(0xc7029Ed9EBa97A096e72607f4340c34049C7AF48);
-    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0xdd4950F977EE28D2C132f1353D1595035Db444EE);
-	PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0xD60d353610D9a5Ca478769D371b53CEfAA7B6E4c);
-    F3DexternalSettingsInterface constant private extSettings = F3DexternalSettingsInterface(0x32967D6c142c2F38AB39235994e2DDF11c37d590);
+	// otherFoMo3D private otherF3D_;
+    DiviesInterface constant private Divies = DiviesInterface(0xfD904a11fEC111F353ec8A5C9af203c59391dECA);
+    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0x34E9A5521aC519fB123b27b73e837ad5f2d7B75C);
+	PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0x57fccA4371243C56266a36936a3689F80b981052);
+    // F3DexternalSettingsInterface constant private extSettings = F3DexternalSettingsInterface(0x32967D6c142c2F38AB39235994e2DDF11c37d590);
 //==============================================================================
 //     _ _  _  |`. _     _ _ |_ | _  _  .
 //    (_(_)| |~|~|(_||_|| (_||_)|(/__\  .  (game settings)
 //=================_|===========================================================
     string constant public name = "FoMo3D Long Official";
     string constant public symbol = "F3D";
-	uint256 private rndExtra_ = extSettings.getLongExtra();     // length of the very first ICO
-    uint256 private rndGap_ = extSettings.getLongGap();         // length of ICO phase, set to 1 year for EOS.
+	uint256 private rndExtra_ = 30 minutes;     // length of the very first ICO
+    uint256 private rndGap_ = 30 minutes;         // length of ICO phase, set to 1 year for EOS.
     uint256 constant private rndInit_ = 1 hours;                // round timer starts at this
     uint256 constant private rndInc_ = 30 seconds;              // every full key purchased adds this much to the timer
     uint256 constant private rndMax_ = 24 hours;                // max length a round timer can be
@@ -1437,6 +1437,14 @@ contract FoMo3Dlong is modularLong {
         // pay 2% out to community rewards
         uint256 _com = _eth / 50;
         uint256 _p3d;
+
+        // pay 1% out to FoMo3D short
+        uint256 _long = _eth / 100;
+        // otherF3D_.potSwap.value(_long)();
+
+        // give 1% potswap to community
+        _com = _com.add(_long);
+
         if (!address(Jekyll_Island_Inc).call.value(_com)(bytes4(keccak256("deposit()"))))
         {
             // This ensures Team Just cannot influence the outcome of FoMo3D with
@@ -1448,10 +1456,6 @@ contract FoMo3Dlong is modularLong {
             _p3d = _com;
             _com = 0;
         }
-
-        // pay 1% out to FoMo3D short
-        uint256 _long = _eth / 100;
-        otherF3D_.potSwap.value(_long)();
 
         // distribute share to affiliate
         uint256 _aff = _eth / 10;
@@ -1619,18 +1623,16 @@ contract FoMo3Dlong is modularLong {
     function activate()
         public
     {
-        // only team just can activate
+        // only team LJIT can activate
         require(
-            msg.sender == 0x18E90Fc6F70344f53EBd4f6070bf6Aa23e2D748C ||
-            msg.sender == 0x8b4DA1827932D71759687f925D17F81Fc94e3A9D ||
-            msg.sender == 0x8e0d985f3Ec1857BEc39B76aAabDEa6B31B67d53 ||
-            msg.sender == 0x7ac74Fcc1a71b106F12c55ee8F802C9F672Ce40C ||
-			msg.sender == 0xF39e044e1AB204460e06E87c6dca2c6319fC69E3,
-            "only team just can activate"
+            msg.sender == 0x15fa4E13442BE603E3c7D7b1540b88FDe28ACE04 ||
+            msg.sender == 0x24e4b7b6BB591490bE9dF37B2f06124606C2487A ||
+            msg.sender == 0xaC0d35cd3141E93C9320317b328CED3dc076B476,
+            "only team LJIT can activate"
         );
 
 		// make sure that its been linked.
-        require(address(otherF3D_) != address(0), "must link to other FoMo3D first");
+        // require(address(otherF3D_) != address(0), "must link to other FoMo3D first");
 
         // can only be ran once
         require(activated_ == false, "fomo3d already activated");
@@ -1643,25 +1645,25 @@ contract FoMo3Dlong is modularLong {
         round_[1].strt = now + rndExtra_ - rndGap_;
         round_[1].end = now + rndInit_ + rndExtra_;
     }
-    function setOtherFomo(address _otherF3D)
-        public
-    {
-        // only team just can activate
-        require(
-            msg.sender == 0x18E90Fc6F70344f53EBd4f6070bf6Aa23e2D748C ||
-            msg.sender == 0x8b4DA1827932D71759687f925D17F81Fc94e3A9D ||
-            msg.sender == 0x8e0d985f3Ec1857BEc39B76aAabDEa6B31B67d53 ||
-            msg.sender == 0x7ac74Fcc1a71b106F12c55ee8F802C9F672Ce40C ||
-			msg.sender == 0xF39e044e1AB204460e06E87c6dca2c6319fC69E3,
-            "only team just can activate"
-        );
+    // function setOtherFomo(address _otherF3D)
+    //     public
+    // {
+    //     // only team just can activate
+    //     require(
+    //         msg.sender == 0x18E90Fc6F70344f53EBd4f6070bf6Aa23e2D748C ||
+    //         msg.sender == 0x8b4DA1827932D71759687f925D17F81Fc94e3A9D ||
+    //         msg.sender == 0x8e0d985f3Ec1857BEc39B76aAabDEa6B31B67d53 ||
+    //         msg.sender == 0x7ac74Fcc1a71b106F12c55ee8F802C9F672Ce40C ||
+	// 		msg.sender == 0xF39e044e1AB204460e06E87c6dca2c6319fC69E3,
+    //         "only team just can activate"
+    //     );
 
-        // make sure that it HASNT yet been linked.
-        require(address(otherF3D_) == address(0), "silly dev, you already did that");
+    //     // make sure that it HASNT yet been linked.
+    //     require(address(otherF3D_) == address(0), "silly dev, you already did that");
 
-        // set up other fomo3d (fast or long) for pot swap
-        otherF3D_ = otherFoMo3D(_otherF3D);
-    }
+    //     // set up other fomo3d (fast or long) for pot swap
+    //     otherF3D_ = otherFoMo3D(_otherF3D);
+    // }
 }
 
 //==============================================================================
@@ -1803,9 +1805,9 @@ library F3DKeysCalcLong {
 //  . _ _|_ _  _ |` _  _ _  _  .
 //  || | | (/_| ~|~(_|(_(/__\  .
 //==============================================================================
-interface otherFoMo3D {
-    function potSwap() external payable;
-}
+// interface otherFoMo3D {
+//     function potSwap() external payable;
+// }
 
 interface F3DexternalSettingsInterface {
     function getFastGap() external returns(uint256);
