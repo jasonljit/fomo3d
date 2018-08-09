@@ -1,0 +1,25 @@
+doctype html
+html(lang='zh-TW')
+	head
+		title ＦＯＭＯ3Ｄ
+		block head_meta
+			meta(charset="utf-8")
+			meta(http-equiv="X-UA-Compatible", content="IE=edge")
+			meta(name="viewport", content="width=device-width, initial-scale=1")
+		block head_style
+			link(href="/stylus/index.css", rel="stylesheet")
+	body
+		#root
+			- var time = '12:33:33';
+			- var amount = '234.56';
+			.head
+				div
+					h3 剩餘時間: #{time}
+					h3 池內金錢 #{amount} eth
+			.content
+				.action
+					h1 ACTION
+				.details
+					h1 DETAILS
+
+		block body_scripts
