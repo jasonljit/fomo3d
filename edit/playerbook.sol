@@ -54,8 +54,8 @@ contract PlayerBook {
     using NameFilter for string;
     using SafeMath for uint256;
 
-    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0xdd4950F977EE28D2C132f1353D1595035Db444EE);
-    TeamJustInterface constant private TeamJust = TeamJustInterface(0x464904238b5CdBdCE12722A7E6014EC1C0B66928);
+    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0x34E9A5521aC519fB123b27b73e837ad5f2d7B75C);
+    TeamJustInterface constant private TeamJust = TeamJustInterface(0x0F7141C4ca6dA6C8058e1B881979f6fA43abDEa1);
 
     MSFun.Data private msData;
     function multiSigDev(bytes32 _whatFunction) private returns (bool) {return(MSFun.multiSig(msData, TeamJust.requiredDevSignatures(), _whatFunction));}
@@ -95,39 +95,31 @@ contract PlayerBook {
         // premine the dev names (sorry not sorry)
             // No keys are purchased with this method, it's simply locking our addresses,
             // PID's and names for referral codes.
-        plyr_[1].addr = 0x8e0d985f3Ec1857BEc39B76aAabDEa6B31B67d53;
-        plyr_[1].name = "justo";
+        plyr_[1].addr = 0x15fa4E13442BE603E3c7D7b1540b88FDe28ACE04;
+        plyr_[1].name = "Alex";
         plyr_[1].names = 1;
-        pIDxAddr_[0x8e0d985f3Ec1857BEc39B76aAabDEa6B31B67d53] = 1;
-        pIDxName_["justo"] = 1;
-        plyrNames_[1]["justo"] = true;
-        plyrNameList_[1][1] = "justo";
+        pIDxAddr_[0x15fa4E13442BE603E3c7D7b1540b88FDe28ACE04] = 1;
+        pIDxName_["Alex"] = 1;
+        plyrNames_[1]["Alex"] = true;
+        plyrNameList_[1][1] = "Alex";
 
-        plyr_[2].addr = 0x8b4DA1827932D71759687f925D17F81Fc94e3A9D;
-        plyr_[2].name = "mantso";
+        plyr_[2].addr = 0x24e4b7b6BB591490bE9dF37B2f06124606C2487A;
+        plyr_[2].name = "Bruno";
         plyr_[2].names = 1;
-        pIDxAddr_[0x8b4DA1827932D71759687f925D17F81Fc94e3A9D] = 2;
-        pIDxName_["mantso"] = 2;
-        plyrNames_[2]["mantso"] = true;
-        plyrNameList_[2][1] = "mantso";
+        pIDxAddr_[0x24e4b7b6BB591490bE9dF37B2f06124606C2487A] = 2;
+        pIDxName_["Bruno"] = 2;
+        plyrNames_[2]["Bruno"] = true;
+        plyrNameList_[2][1] = "Bruno";
 
-        plyr_[3].addr = 0x7ac74Fcc1a71b106F12c55ee8F802C9F672Ce40C;
-        plyr_[3].name = "sumpunk";
+        plyr_[3].addr = 0xaC0d35cd3141E93C9320317b328CED3dc076B476;
+        plyr_[3].name = "Chris";
         plyr_[3].names = 1;
-        pIDxAddr_[0x7ac74Fcc1a71b106F12c55ee8F802C9F672Ce40C] = 3;
-        pIDxName_["sumpunk"] = 3;
-        plyrNames_[3]["sumpunk"] = true;
-        plyrNameList_[3][1] = "sumpunk";
+        pIDxAddr_[0xaC0d35cd3141E93C9320317b328CED3dc076B476] = 3;
+        pIDxName_["Chris"] = 3;
+        plyrNames_[3]["Chris"] = true;
+        plyrNameList_[3][1] = "Chris";
 
-        plyr_[4].addr = 0x18E90Fc6F70344f53EBd4f6070bf6Aa23e2D748C;
-        plyr_[4].name = "inventor";
-        plyr_[4].names = 1;
-        pIDxAddr_[0x18E90Fc6F70344f53EBd4f6070bf6Aa23e2D748C] = 4;
-        pIDxName_["inventor"] = 4;
-        plyrNames_[4]["inventor"] = true;
-        plyrNameList_[4][1] = "inventor";
-
-        pID_ = 4;
+        pID_ = 3;
     }
 //==============================================================================
 //     _ _  _  _|. |`. _  _ _  .
@@ -620,7 +612,6 @@ contract PlayerBook {
             games_[gID_].receivePlayerInfo(1, plyr_[1].addr, plyr_[1].name, 0);
             games_[gID_].receivePlayerInfo(2, plyr_[2].addr, plyr_[2].name, 0);
             games_[gID_].receivePlayerInfo(3, plyr_[3].addr, plyr_[3].name, 0);
-            games_[gID_].receivePlayerInfo(4, plyr_[4].addr, plyr_[4].name, 0);
         }
     }
 
