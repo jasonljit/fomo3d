@@ -18,8 +18,10 @@ html(lang='zh-TW')
 					h3 池內金錢 #{amount} eth
 			.content
 				.action
-					h1 ACTION
+					block action-content
+						h1 ACTION
 				.details
-					h1 DETAILS
+					block details-content
+						h1 DETAILS
 
 		block body_scripts
