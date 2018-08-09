@@ -112,20 +112,16 @@ contract TeamJust {
     constructor()
         public
     {
-        address inventor = 0x18E90Fc6F70344f53EBd4f6070bf6Aa23e2D748C;
-        address mantso   = 0x8b4DA1827932D71759687f925D17F81Fc94e3A9D;
-        address justo    = 0x8e0d985f3Ec1857BEc39B76aAabDEa6B31B67d53;
-        address sumpunk  = 0x7ac74Fcc1a71b106F12c55ee8F802C9F672Ce40C;
-		address deployer = 0xF39e044e1AB204460e06E87c6dca2c6319fC69E3;
+        address Alex = 0x15fa4E13442BE603E3c7D7b1540b88FDe28ACE04;
+        address Bruno = 0x24e4b7b6BB591490bE9dF37B2f06124606C2487A;
+        address Chris = 0xaC0d35cd3141E93C9320317b328CED3dc076B476;
 
-        admins_[inventor] = Admin(true, true, "inventor");
-        admins_[mantso]   = Admin(true, true, "mantso");
-        admins_[justo]    = Admin(true, true, "justo");
-        admins_[sumpunk]  = Admin(true, true, "sumpunk");
-		admins_[deployer] = Admin(true, true, "deployer");
+        admins_[Alex] = Admin(true, true, "Alex");
+        admins_[Bruno] = Admin(true, true, "Bruno");
+        admins_[Chris] = Admin(true, true, "Chris");
 
-        adminCount_ = 5;
-        devCount_ = 5;
+        adminCount_ = 3;
+        devCount_ = 3;
         requiredSignatures_ = 1;
         requiredDevSignatures_ = 1;
     }
