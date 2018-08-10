@@ -1,0 +1,37 @@
+extends ./layout
+
+block append action-content
+	span player ID:
+	input#player-id(type='number' disabled)
+	br
+	span 鑰匙價格 :
+	input#key-price(type='number' disabled)
+	span Wei
+	br
+	span 鑰匙數量 :
+	input#key-number(type='number' name='keyNumber' value='1')
+	br
+	span 價格 :
+	span#total-price
+	span ETH
+	br
+	span 推薦人地址 :
+	input#affiliate-address(type='text')
+	br
+	span 選擇隊伍
+	br
+	input(type='radio' name='team' value='2' checked)
+	span Snek
+	input(type='radio' name='team' value='0')
+	span Whale
+	input(type='radio' name='team' value='3')
+	span Bull
+	input(type='radio' name='team' value='1')
+	span Bear
+	br
+	h3 Vault
+	span Total Gains :
+	span#total-gains
+	span  ETH
+	br
+	button#buy-key Buy
