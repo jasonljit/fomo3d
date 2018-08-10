@@ -33,12 +33,19 @@ function start(contract) {
 async function updateRestTime(contract) {
 	contract.getTimeLeft(function(error, result) {
 		const restTime = Number(result);
-		$restTime.text(restTime);
+
+		timeCountDown(restTime);
 	});
 }
 
 function timeCountDown(time) {
-
+	setInterval(function() {
+		if (time === 0) {
+			clearInterval(timeCountDown);
+			return $restTime.text(0);
+		}
+		$restTime.text(time--);
+	}, 1000);
 }
 
 async function updateCurrentRoundInfo(contract) {
@@ -59,7 +66,7 @@ async function getPlayerInfo(contract) {
 		}
 		const plyrKeys = result[2];
 		const plyrEarnings = Number(result[3]) + Number(result[4]) + Number(result[5]);
-		$plyrKeys.text(plyrKeys);
+		$plyrKeys.text(plyrKeys / ether);
 		$plyrEarnings.text(plyrEarnings / ether);
 	})
 }
