@@ -10,12 +10,15 @@ html(lang='zh-TW')
 			link(href="/stylus/index.css", rel="stylesheet")
 	body
 		#root
-			- var time = '12:33:33';
-			- var amount = '234.56';
 			.head
 				div
-					h3 剩餘時間: #{time}
-					h3 池內金錢 #{amount} eth
+					h3 剩餘時間:
+					h3.restTime
+					h3 sec
+				div
+					h3 池內金錢
+					h3.potMoney
+					h3 eth
 			.content
 				.action
 					block action-content
@@ -25,3 +28,5 @@ html(lang='zh-TW')
 						h1 DETAILS
 
 		block body_scripts
+			script(src="https://code.jquery.com/jquery-3.3.1.min.js")
+			script(src="../public/js/index.js")
