@@ -1,0 +1,48 @@
+extends layout.pug
+
+append details-content
+	.container
+		h3 Contract will drain in
+		.row
+			p.restTime
+			p &nbsp SEC
+	.container
+		h3 Active Pot
+		.row
+			p.potMoney
+			p  &nbsp ETH
+	.container
+		h3 Your key
+		p.plyrKeys
+	.container
+		h3 Your Earning
+		.row
+			p.plyrEarnings
+			p &nbsp ETH
+	.container
+		h3 TEAM
+		.row
+			#team-whales.team
+				h4 Whales
+				.row
+					p.earning
+					p &nbsp ETH
+			#team-bears.team
+				h4 Bears
+				.row
+					p.earning
+					p &nbsp ETH
+		.row
+			#team-bulls.team
+				h4 Bulls
+				.row
+					p.earning
+					p &nbsp ETH
+			#team-sneks.team
+				h4 Sneks
+				.row
+					p.earning
+					p &nbsp ETH
+
+append body_scripts
+	script(src='../public/js/details.js')

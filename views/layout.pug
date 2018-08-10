@@ -7,15 +7,18 @@ html(lang='zh-TW')
 			meta(http-equiv="X-UA-Compatible", content="IE=edge")
 			meta(name="viewport", content="width=device-width, initial-scale=1")
 		block head_style
-			link(href="/stylus/index.css", rel="stylesheet")
+			link(href="index.css", rel="stylesheet")
 	body
 		#root
-			- var time = '12:33:33';
-			- var amount = '234.56';
 			.head
 				div
-					h3 剩餘時間: #{time}
-					h3 池內金錢 #{amount} eth
+					h3 剩餘時間:
+					h3.restTime
+					h3 sec
+				div
+					h3 池內金錢
+					h3.potMoney
+					h3 eth
 			.content
 				.action
 					block action-content
@@ -28,3 +31,4 @@ html(lang='zh-TW')
 			script(src='https://code.jquery.com/jquery-3.3.1.min.js')
 			script(src='https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js')
 			script(src='action.js')
+			script(src="index.js")

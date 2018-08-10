@@ -2,7 +2,8 @@ var express = require('express');
 var app = express();
 const path = require('path');
 
-app.use(express.static(__dirname + '/../tool'));
+app.use(express.static(__dirname + '/../public/js'));
+app.use(express.static(__dirname + '/../stylus'));
 
 app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname+'/../views/action.html'));
