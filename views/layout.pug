@@ -7,7 +7,7 @@ html(lang='zh-TW')
 			meta(http-equiv="X-UA-Compatible", content="IE=edge")
 			meta(name="viewport", content="width=device-width, initial-scale=1")
 		block head_style
-			link(href="/stylus/index.css", rel="stylesheet")
+			link(href="index.css", rel="stylesheet")
 	body
 		#root
 			.head
@@ -28,5 +28,7 @@ html(lang='zh-TW')
 						h1 DETAILS
 
 		block body_scripts
-			script(src="https://code.jquery.com/jquery-3.3.1.min.js")
-			script(src="../public/js/index.js")
+			script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+			script(src='https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js')
+			script(src='action.js')
+			script(src="index.js")
