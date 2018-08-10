@@ -45,7 +45,8 @@ function timeCountDown(time) {
 			return $restTime.text(0);
 		}
 		$restTime.text(time--);
-	}, 1000);
+	},
+	1000);
 }
 
 async function updateCurrentRoundInfo(contract) {
