@@ -1334,7 +1334,7 @@ function getPlayerVaults(fomo3d, jqueryObj) {
 
 	fomo3d.getPlayerVaults(playerId, function(err, result) {
 		var vaults = result.map(function(element) {
-			return element.c[0];
+			return Number(element);
 		});
 
 		var total = vaults.reduce(function(accumulator, currentValue) {
