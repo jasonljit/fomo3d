@@ -1,3 +1,141 @@
+window.addEventListener('load', function() {
+	new Clipboard('#copy');
+
+	if (typeof web3 !== 'undefined') {
+		web3 = new Web3(web3.currentProvider);
+	} else {
+		// web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/0jLod4pakQUQk9PDAhwr"));
+	}
+
+	web3.eth.defaultAccount = web3.eth.accounts[0];
+
+	var contractAddress = '0xC7cDa7F761E617cEefbD107b0610a6B5607b6EeE';
+	var playerAddress = web3.eth.defaultAccount;
+	var fomo3dContract = web3.eth.contract(contractAbi);
+	var fomo3d = fomo3dContract.at(contractAddress);
+
+	var jqueryObj = {
+		$playerId: $('#player-id'),
+		$keyAmount: $('#key-amount'),
+		$totalPrice: $('#total-price'),
+		$onLockdown: $('#on-lockdown'),
+		$exitScammed: $('#exit-scammed'),
+		$badAdvice: $('#bad-advice'),
+		$totalGains: $('#total-gains'),
+		$referralURL: $('#referral-url'),
+		$sendETH: $('#send-eth'),
+		$affiliateAddress: $('#affiliate-address'),
+		$withdraw: $('#withdraw'),
+		$copy: $('#copy'),
+	}
+
+	setReferralURL(jqueryObj, playerAddress);
+	getPlayerId(fomo3d, jqueryObj, playerAddress);
+	getTotalPrice(fomo3d, jqueryObj);
+
+	jqueryObj.$keyAmount.change(function() {
+		getTotalPrice(fomo3d, jqueryObj);
+	});
+
+	jqueryObj.$sendETH.click(function() {
+		var priceEther = jqueryObj.$totalPrice.val();
+		var priceWei = web3.toWei(priceEther, 'ether');
+		var transactionObject = {
+			value: priceWei,
+			gasPrice: web3.toWei('0.001', 'gwei'),
+		};
+		var team = $("input[name=team]:checked").val();
+		var affiliateAddress = jqueryObj.$affiliateAddress.val();
+
+		affiliateAddress = affiliateAddress === '' ? '0' : affiliateAddress;
+
+		fomo3d.buyXaddr.sendTransaction(affiliateAddress, team, transactionObject, function(err, result) {
+			if (err) {
+				console.log(err);
+			}
+
+			console.log(result);
+		});
+	});
+
+	jqueryObj.$withdraw.click(function() {
+		fomo3d.withdraw(function(err, result) {
+			if (err) {
+				console.log(err);
+			}
+
+			console.log(result);
+		});
+	});
+
+	jqueryObj.$copy.click(function() {
+		jqueryObj.$copy.tooltip('enable');
+		jqueryObj.$copy.tooltip('show');
+		jqueryObj.$copy.tooltip('disable');
+	});
+});
+
+
+function setReferralURL(jqueryObj, playerAddress) {
+	var refferalURL = 'http://localhost:3333?referralAddr=' + playerAddress;
+
+	jqueryObj.$referralURL.text(playerAddress);
+}
+
+function getPlayerId(fomo3d, jqueryObj, playerAddress) {
+	fomo3d.pIDxAddr_(playerAddress, function(err, result) {
+		var playerId = Number(result);
+
+		jqueryObj.$playerId.val(playerId);
+
+		getPlayerVaults(fomo3d, jqueryObj);
+	})
+}
+
+function getTotalPrice(fomo3d, jqueryObj) {
+	var keyAmountWei = web3.toWei(jqueryObj.$keyAmount.val(), 'ether');
+
+	fomo3d.iWantXKeys(keyAmountWei, function(err, result) {
+		if (err) {
+			console.log(err);
+		}
+
+		var totalPrice = Number(result);
+
+		displayTotalPrice(totalPrice, jqueryObj);
+	});
+}
+
+function displayTotalPrice(totalPrice, jqueryObj) {
+	jqueryObj.$totalPrice.val(web3.fromWei(totalPrice, 'ether'));
+}
+
+function getPlayerVaults(fomo3d, jqueryObj) {
+	var playerId = jqueryObj.$playerId.val();
+
+	fomo3d.getPlayerVaults(playerId, function(err, result) {
+		var vaults = result.map(function(element) {
+			return Number(element);
+		});
+
+		var total = vaults.reduce(function(accumulator, currentValue) {
+			return accumulator + currentValue;
+		});
+
+		jqueryObj.$onLockdown.text(weiToEther(vaults[0]));
+		jqueryObj.$exitScammed.text(weiToEther(vaults[1]));
+		jqueryObj.$badAdvice.text(weiToEther(vaults[2]));
+		jqueryObj.$totalGains.text(weiToEther(total));
+	});
+}
+
+function weiToEther(value) {
+	var valueInEther = web3.fromWei(value, 'ether');
+
+	return parseFloat(valueInEther).toFixed(4);
+}
+
+
 var contractAbi = [
 	{
 		"anonymous": false,
@@ -1230,117 +1368,3 @@ var contractAbi = [
 		"type": "function"
 	}
 ];
-
-window.addEventListener('load', function() {
-	if (typeof web3 !== 'undefined') {
-		web3 = new Web3(web3.currentProvider);
-	} else {
-		// web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/0jLod4pakQUQk9PDAhwr"));
-	}
-
-	web3.eth.defaultAccount = web3.eth.accounts[0];
-
-	var contractAddress = '0xC7cDa7F761E617cEefbD107b0610a6B5607b6EeE';
-	var fomo3dContract = web3.eth.contract(contractAbi);
-	var fomo3d = fomo3dContract.at(contractAddress);
-
-	var $keyPrice = $('#key-price');
-	var $keyNumber = $('#key-number');
-	var $totalPrice = $('#total-price');
-	var $affiliateAddress = $('#affiliate-address');
-	var $playerId = $('#player-id');
-	var $totalGains = $('#total-gains');
-
-	var jqueryObj = {
-		$keyPrice,
-		$keyNumber,
-		$totalPrice,
-		$playerId,
-		$totalGains,
-	}
-
-	getPlayerId(fomo3d, jqueryObj);
-	getBuyPrice(fomo3d, jqueryObj);
-
-	// $playerId.change(function() {
-	// 	getPlayerVaults(fomo3d, jqueryObj);
-	// });
-
-	$keyNumber.change(function() {
-		displayTotalPrice(jqueryObj);
-	});
-
-	$('#buy-key').click(function() {
-		var priceEther = $('#total-price').text();
-		var priceWei = web3.toWei(priceEther, 'ether');
-		var transactionObject = {
-			value: priceWei,
-		};
-		var team = $("input[name=team]:checked").val();
-		var affiliateAddress = $affiliateAddress.val();
-
-		affiliateAddress = affiliateAddress === '' ? '0' : affiliateAddress;
-
-		fomo3d.buyXaddr.sendTransaction(affiliateAddress, team, transactionObject, function(err, result) {
-			if (err) {
-				console.log(err);
-			}
-
-			console.log(result);
-		});
-	});
-
-});
-
-function getPlayerId(fomo3d, jqueryObj) {
-	var playerAddress = web3.eth.defaultAccount;
-
-	fomo3d.pIDxAddr_(playerAddress, function(err, result) {
-		var playerId = result.c[0];
-
-		jqueryObj.$playerId.val(playerId);
-
-		getPlayerVaults(fomo3d, jqueryObj);
-	})
-}
-
-function getBuyPrice(fomo3d, jqueryObj) {
-	fomo3d.getBuyPrice(function(err, result) {
-		if (err) {
-			console.log(err);
-		}
-
-		var keyPrice = result.c[0];
-
-		displayKeyPrice(keyPrice, jqueryObj);
-		displayTotalPrice(jqueryObj);
-	});
-}
-
-function displayKeyPrice(keyPrice, jqueryObj) {
-	jqueryObj.$keyPrice.val(keyPrice);
-}
-
-function displayTotalPrice(jqueryObj) {
-	var keyPrice = jqueryObj.$keyPrice.val();
-	var price = keyPrice * jqueryObj.$keyNumber.val();
-	var priceEther = web3.fromWei(price, 'ether');
-
-	jqueryObj.$totalPrice.text(priceEther);
-}
-
-function getPlayerVaults(fomo3d, jqueryObj) {
-	var playerId = jqueryObj.$playerId.val();
-
-	fomo3d.getPlayerVaults(playerId, function(err, result) {
-		var vaults = result.map(function(element) {
-			return element.c[0];
-		});
-
-		var total = vaults.reduce(function(accumulator, currentValue) {
-			return accumulator + currentValue;
-		});
-
-		jqueryObj.$totalGains.text(web3.fromWei(total, 'ether'));
-	});
-}
