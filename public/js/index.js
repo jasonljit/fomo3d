@@ -76,28 +76,28 @@ async function getTeamsEth(contract) {
 	contract.rID_(function(error, result) {
 		const rID = Number(result);
 
-		contract.rndTmEth_(rID, 1, function (error, result) {
+		contract.rndTmEth_(rID, 0, function (error, result) {
 			if (error) {
 				console.log(error);
 			}
 			$teamWhales.text(Number(result) / ether);
 		})
 
-		contract.rndTmEth_(rID, 2, function (error, result) {
+		contract.rndTmEth_(rID, 1, function (error, result) {
 			if (error) {
 				console.log(error);
 			}
 			$teamBears.text(Number(result) / ether);
 		})
 
-		contract.rndTmEth_(rID, 3, function (error, result) {
+		contract.rndTmEth_(rID, 2, function (error, result) {
 			if (error) {
 				console.log(error);
 			}
 			$teamSneks.text(Number(result) / ether);
 		})
 
-		contract.rndTmEth_(rID, 4, function (error, result) {
+		contract.rndTmEth_(rID, 3, function (error, result) {
 			if (error) {
 				console.log(error);
 			}
