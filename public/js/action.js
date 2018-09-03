@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
 
 	web3.eth.defaultAccount = web3.eth.accounts[0];
 
-	var contractAddress = '0xC7cDa7F761E617cEefbD107b0610a6B5607b6EeE';
+	var contractAddress = '0x54e8689A8b584D6B85C832ed0623c7F24c31D7F2';
 	var playerAddress = web3.eth.defaultAccount;
 	var fomo3dContract = web3.eth.contract(contractAbi);
 	var fomo3d = fomo3dContract.at(contractAddress);
