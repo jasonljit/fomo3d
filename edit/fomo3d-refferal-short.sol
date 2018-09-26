@@ -184,20 +184,20 @@ contract FoMo3Dlong is modularLong {
 
 	// otherFoMo3D private otherF3D_;
     DiviesInterface constant private Divies = DiviesInterface(0xfD904a11fEC111F353ec8A5C9af203c59391dECA);
-    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0x34E9A5521aC519fB123b27b73e837ad5f2d7B75C);
-	PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0x57fccA4371243C56266a36936a3689F80b981052);
+    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0x57fccA4371243C56266a36936a3689F80b981052);
+    PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0x973C83919836cca35dd0f4B2a50103e8F4B858Cc);
     // F3DexternalSettingsInterface constant private extSettings = F3DexternalSettingsInterface(0x32967D6c142c2F38AB39235994e2DDF11c37d590);
 //==============================================================================
 //     _ _  _  |`. _     _ _ |_ | _  _  .
 //    (_(_)| |~|~|(_||_|| (_||_)|(/__\  .  (game settings)
 //=================_|===========================================================
-    string constant public name = "FoMo3D Long Official";
+    string constant public name = "FoMo3D The Great Referral Short";
     string constant public symbol = "F3D";
-	uint256 private rndExtra_ = 5 minutes;     // length of the very first ICO
+    uint256 private rndExtra_ = 5 minutes;     // length of the very first ICO
     uint256 private rndGap_ = 5 minutes;         // length of ICO phase, set to 1 year for EOS.
-    uint256 constant private rndInit_ = 5 minutes;                // round timer starts at this
+    uint256 constant private rndInit_ = 10 minutes;                // round timer starts at this
     uint256 constant private rndInc_ = 30 seconds;              // every full key purchased adds this much to the timer
-    uint256 constant private rndMax_ = 5 minutes;                // max length a round timer can be
+    uint256 constant private rndMax_ = 10 minutes;                // max length a round timer can be
 //==============================================================================
 //     _| _ _|_ _    _ _ _|_    _   .
 //    (_|(_| | (_|  _\(/_ | |_||_)  .  (data used to store game info that changes)
@@ -1471,7 +1471,7 @@ contract FoMo3Dlong is modularLong {
         uint256 _aff;
 
         while (_affID != _pID && plyr_[_affID].name != "" && i < 3) {
-            _aff = _eth.mul(referralProportion[i] / 100);
+            _aff = _eth.mul(referralProportion[i]) / 100;
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             referralProportionAccumulator = referralProportionAccumulator + referralProportion[i];
             emit F3Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
@@ -1482,7 +1482,7 @@ contract FoMo3Dlong is modularLong {
 
         uint256 undistributedPortion = referralTotalProportion - referralProportionAccumulator;
 
-        _com = _com.add(_eth.mul(undistributedPortion / 100));
+        _com = _com.add(_eth.mul(undistributedPortion) / 100);
 
         if (!address(Jekyll_Island_Inc).call.value(_com)(bytes4(keccak256("deposit()"))))
         {

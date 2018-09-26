@@ -1,5 +1,5 @@
 const contractABIJSON = getContractABIJSON();
-const contractAddress = '0x54e8689A8b584D6B85C832ed0623c7F24c31D7F2';
+const contractAddress = '0x566766d130C978250Ec7eC420a558aD3B780827E';
 const ether = 1000000000000000000;
 const $restTime = $('.restTime');
 const $potMoney = $('.potMoney');

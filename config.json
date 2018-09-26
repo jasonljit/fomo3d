@@ -1,5 +1,5 @@
 {
-	"account": [
+	"accounts": [
 		{
 			"name": "Alex",
 			"address" : "0x15fa4E13442BE603E3c7D7b1540b88FDe28ACE04",
@@ -16,7 +16,7 @@
 			"privateKey": "0x24da613159d87c1a154490f40786ba0eb8c116edb613d9146ec9b60e6c56937e"
 		}
 	],
-	"contract":[
+	"contractsOnRopsten":[
 		{
 			"name": "p3d",
 			"address": "0x53EbD27d72a35eC520E9859258FaC7c64dbd0b09"
@@ -48,6 +48,40 @@
 		{
 			"name": "fomo3d referral",
 			"address": "0x54e8689A8b584D6B85C832ed0623c7F24c31D7F2"
+		}
+	],
+	"contractsOnRinkeby":[
+		{
+			"name": "p3d",
+			"address": "0x53EbD27d72a35eC520E9859258FaC7c64dbd0b09"
+		},
+		{
+			"name": "divies",
+			"address": "0xfD904a11fEC111F353ec8A5C9af203c59391dECA"
+		},
+		{
+			"name": "bank",
+			"address": "0x0F7141C4ca6dA6C8058e1B881979f6fA43abDEa1"
+		},
+		{
+			"name": "community",
+			"address": "0x57fccA4371243C56266a36936a3689F80b981052"
+		},
+		{
+			"name": "teamLJIT",
+			"address": "0x7D303477F84B59387b398db7Dc93601E5259A91C"
+		},
+		{
+			"name": "playerbook",
+			"address": "0x973C83919836cca35dd0f4B2a50103e8F4B858Cc"
+		},
+		{
+			"name": "fomo3d",
+			"address": "0xAfAbF9B3661b9DE52EC0f7A40bE906eaaA0e0218"
+		},
+		{
+			"name": "fomo3d referral short",
+			"address": "0x566766d130C978250Ec7eC420a558aD3B780827E"
 		}
 	]
 }

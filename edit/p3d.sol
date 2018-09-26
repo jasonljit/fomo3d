@@ -189,10 +189,11 @@ contract Hourglass {
         // administrators[0xdd8bb99b13fe33e1c32254dfb8fff3e71193f6b730a89dd33bfe5dedc6d83002] = true;
 
         // add the ambassadors here.
-        // meta mask account
+        // Alex
         ambassadors_[0x15fa4E13442BE603E3c7D7b1540b88FDe28ACE04] = true;
-        // normal account
+        // Bruno
         ambassadors_[0x24e4b7b6BB591490bE9dF37B2f06124606C2487A] = true;
+        // Chris
         ambassadors_[0xaC0d35cd3141E93C9320317b328CED3dc076B476] = true;
     }
 
