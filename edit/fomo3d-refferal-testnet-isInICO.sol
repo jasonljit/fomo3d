@@ -191,7 +191,7 @@ contract FoMo3Dlong is modularLong {
 //     _ _  _  |`. _     _ _ |_ | _  _  .
 //    (_(_)| |~|~|(_||_|| (_||_)|(/__\  .  (game settings)
 //=================_|===========================================================
-    string constant public name = "FoMo3D The Great Referral Short";
+    string constant public name = "FoMo3D The Great Referral";
     string constant public symbol = "F3D";
     uint256 private rndExtra_ = 5 minutes;     // length of the very first ICO
     uint256 private rndGap_ = 5 minutes;         // length of ICO phase, set to 1 year for EOS.
@@ -758,6 +758,30 @@ contract FoMo3Dlong is modularLong {
                 return( (round_[_rID].strt + rndGap_).sub(_now) );
         else
             return(0);
+    }
+
+    /**
+     * @dev return if it's in ico phase or not
+     * @return bool
+     */
+    function isInICOPhase()
+        public
+        view
+        returns(bool)
+    {
+        // setup local rID
+        uint256 _rID = rID_;
+
+        // grab time
+        uint256 _now = now;
+
+        if (_now < round_[_rID].end)
+            if (_now > round_[_rID].strt + rndGap_)
+                return(false);
+            else
+                return(true);
+        else
+            return(false);
     }
 
     /**

@@ -66,7 +66,7 @@ contract Divies {
     using SafeMath for uint256;
     using UintCompressor for uint256;
 
-    HourglassInterface constant P3Dcontract_ = HourglassInterface(0x53EbD27d72a35eC520E9859258FaC7c64dbd0b09);
+    HourglassInterface constant P3Dcontract_ = HourglassInterface(0xAfAbF9B3661b9DE52EC0f7A40bE906eaaA0e0218);
 
     uint256 public pusherTracker_ = 100;
     mapping (address => Pusher) public pushers_;

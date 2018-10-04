@@ -61,7 +61,7 @@
 		},
 		{
 			"name": "bank",
-			"address": "0x0F7141C4ca6dA6C8058e1B881979f6fA43abDEa1"
+			"address": "0x842b2fd25B3a2A8E07E96110977775A7A7ecE316"
 		},
 		{
 			"name": "community",
@@ -82,6 +82,44 @@
 		{
 			"name": "fomo3d referral short",
 			"address": "0x566766d130C978250Ec7eC420a558aD3B780827E"
+		},
+		{
+			"name": "fomo3d referral short with ico check",
+			"address": "0x4E6568eFAb882Ea3dD53cfEc7cE0ef7b1564DA32"
+		}
+	],
+	"contractsOnMainnet":[
+		{
+			"name": "p3d",
+			"address": "0xAfAbF9B3661b9DE52EC0f7A40bE906eaaA0e0218"
+		},
+		{
+			"name": "divies",
+			"address": "0x53EbD27d72a35eC520E9859258FaC7c64dbd0b09"
+		},
+		{
+			"name": "bank",
+			"address": "0xfD904a11fEC111F353ec8A5C9af203c59391dECA"
+		},
+		{
+			"name": "community",
+			"address": "0x57fccA4371243C56266a36936a3689F80b981052"
+		},
+		{
+			"name": "teamLJIT",
+			"address": "0x7D303477F84B59387b398db7Dc93601E5259A91C"
+		},
+		{
+			"name": "playerbook",
+			"address": "0x973C83919836cca35dd0f4B2a50103e8F4B858Cc"
+		},
+		{
+			"name": "fomo3d referral",
+			"address": "0xd03df16B06177aCDAF48BfFd363D760B47D6cD78"
+		},
+		{
+			"name": "tkey (game start with 24h)",
+			"address": "0xd595d8820179FFfE4f4F31655e3eC49D87A10F95"
 		}
 	]
 }
