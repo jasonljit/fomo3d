@@ -1,0 +1,135 @@
+extends ./layout
+
+block append head_style
+	link(rel='stylesheet' href='action.css')
+
+append details-content
+	.container
+		h3 Contract will drain in
+		.row
+			p.restTime
+			p &nbsp SEC
+	.container
+		h3 Active Pot
+		.row
+			p.potMoney
+			p  &nbsp ETH
+	.container
+		h3 Your key
+		p.plyrKeys
+	.container
+		h3 Your Earning
+		.row
+			p.plyrEarnings
+			p &nbsp ETH
+	.container
+		h3 TEAM
+		.row
+			#team-whales.team
+				h4 Whales
+				.row
+					p.earning
+					p &nbsp ETH
+			#team-bears.team
+				h4 Bears
+				.row
+					p.earning
+					p &nbsp ETH
+		.row
+			#team-bulls.team
+				h4 Bulls
+				.row
+					p.earning
+					p &nbsp ETH
+			#team-sneks.team
+				h4 Sneks
+				.row
+					p.earning
+					p &nbsp ETH
+
+block append action-content
+	#action
+		table#account-data
+			tbody
+				tr
+					td player ID
+					td
+						input#player-id(type='number' disabled)
+		#purchase.bordered
+			h1 Purchase
+			#price-container
+				.flex-row
+					.flex-col-1
+						span key
+					.flex-col-3
+						input#key-amount(type='number' value='1')
+					.flex-col-6
+						input#total-price(type='number' disabled)
+						span ETH
+			#choose-team
+				.flex-row
+					.flex-col-25
+						input(type='radio' name='team' value='2' checked)
+						span Snek
+					.flex-col-25
+						input(type='radio' name='team' value='0')
+						span Whale
+					.flex-col-25
+						input(type='radio' name='team' value='3')
+						span Bull
+					.flex-col-25
+						input(type='radio' name='team' value='1')
+						span Bear
+			#affiliate
+				span 推薦人地址 : &nbsp
+				input#affiliate-address(type='text')
+			#purchase-case
+				.flex-row
+					.flex-col-45
+						button#send-eth Send ETH
+					.flex-col-45
+						button#use-vault Use Vault
+		#vault.bordered
+			h1 Vault
+			div
+				.flex-row
+					.flex-col-5
+						span On Lockdown
+					.flex-col-3.value
+						span#on-lockdown
+					.flex-col-2.unit
+						span ETH
+				.flex-row
+					.flex-col-5
+						span Exit scammed
+					.flex-col-3.value
+						span#exit-scammed
+					.flex-col-2.unit
+						span ETH
+				.flex-row
+					.flex-col-5
+						span Bad Advice
+					.flex-col-3.value
+						span#bad-advice
+					.flex-col-2.unit
+						span ETH
+				hr
+				.flex-row
+					.flex-col-5
+						span Total Gains
+					.flex-col-3.value
+						span#total-gains
+					.flex-col-2.unit
+						span ETH
+				div
+					button#withdraw Withdraw
+		#referral.bordered
+			h1 Referral
+			div
+				p Your Address
+				p#referral-url.bordered
+				div
+					button#copy(data-clipboard-target="#referral-url" title='Copied') Copy
+				hr
+				div
+					button#register-name Register a new name
