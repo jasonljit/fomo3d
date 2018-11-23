@@ -54,8 +54,8 @@ contract PlayerBook {
     using NameFilter for string;
     using SafeMath for uint256;
 
-    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0x34E9A5521aC519fB123b27b73e837ad5f2d7B75C);
-    TeamJustInterface constant private TeamJust = TeamJustInterface(0x0F7141C4ca6dA6C8058e1B881979f6fA43abDEa1);
+    JIincForwarderInterface constant private Jekyll_Island_Inc = JIincForwarderInterface(0x57fccA4371243C56266a36936a3689F80b981052);
+    TeamJustInterface constant private TeamJust = TeamJustInterface(0x7D303477F84B59387b398db7Dc93601E5259A91C);
 
     MSFun.Data private msData;
     function multiSigDev(bytes32 _whatFunction) private returns (bool) {return(MSFun.multiSig(msData, TeamJust.requiredDevSignatures(), _whatFunction));}

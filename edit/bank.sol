@@ -2,11 +2,13 @@ pragma solidity ^0.4.24;
 
 contract Bank {
     string public name = "bank";
+    address public owner;
+    address public withdrawer;
 
     constructor()
         public
     {
-        //constructor does nothing.
+        owner = msg.sender;
     }
 
     function()
@@ -30,5 +32,33 @@ contract Bank {
         returns (bool)
     {
         return (true);
+    }
+
+    function setWithdrawer(address _withdrawer)
+        public
+        returns (bool)
+    {
+        require(msg.sender == owner);
+        withdrawer = _withdrawer;
+
+        return (true);
+    }
+
+    function withdraw()
+        public
+        returns (bool)
+    {
+        require(msg.sender == withdrawer);
+        withdrawer.transfer(address(this).balance);
+
+        return (true);
+    }
+
+    function getContractBalance()
+        public
+        view
+        returns (uint)
+    {
+        return (address(this).balance);
     }
 }
